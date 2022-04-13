@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Livro {
     private Autor autor;
     private Editora editora;
@@ -10,6 +12,8 @@ public class Livro {
 //    5 - Reprovado
     private int qntdPaginas;
     private int ISBN;
+
+    static ArrayList<Livro>listaLivros = new ArrayList<Livro>();
 
     public Livro(Autor autor, String titulo, int status, int qntdPaginas, int ISBN) {
         this.autor = autor;
@@ -67,13 +71,27 @@ public class Livro {
         this.ISBN = ISBN;
     }
 
+
     @Override
     public String toString() {
+        String statusStri = null, editoraNome = null;
+        switch(status){
+            case 1 -> statusStri = "Aprovado";
+            case 2 -> statusStri = "Em revisão";
+            case 3 -> statusStri = "Aguardando revisão";
+            case 4 -> statusStri = "Aguardando edição";
+            case 5 -> statusStri = "Reprovado";
+        }
+
+        if(editora == null){
+            editoraNome = "Livro não publicado";
+        }
+
         return "Livro{" +
-                "autor=" + autor +
-                ", editora=" + editora +
+                "autor=" + autor.getNome() +
+                ", editora=" + editoraNome +
                 ", titulo='" + titulo + '\'' +
-                ", status=" + status +
+                ", status=" + statusStri +
                 ", qntdPaginas=" + qntdPaginas +
                 ", ISBN=" + ISBN +
                 '}';

@@ -1,5 +1,9 @@
+import java.util.ArrayList;
+
 public class Editora {
     private String nome, CNPJ;
+
+    static ArrayList<Editora> listaEditoras = new ArrayList<>();
 
     public Editora(String nome, String CNPJ) {
         this.nome = nome;

@@ -10,7 +10,9 @@ public class Livro {
 //    3 - Aguardando revisão
 //    4 - Aguardando edição
 //    5 - Reprovado
+//    6 - Publicado
     private int qntdPaginas;
+    private double paginasRevisadas = 0;
     private int ISBN;
 
     static ArrayList<Livro>listaLivros = new ArrayList<Livro>();
@@ -71,6 +73,13 @@ public class Livro {
         this.ISBN = ISBN;
     }
 
+    public double getPaginasRevisadas() {
+        return paginasRevisadas;
+    }
+
+    public void setPaginasRevisadas(double paginasRevisadas) {
+        this.paginasRevisadas = paginasRevisadas;
+    }
 
     @Override
     public String toString() {
@@ -85,6 +94,8 @@ public class Livro {
 
         if(editora == null){
             editoraNome = "Livro não publicado";
+        } else {
+            editoraNome = editora.getNome();
         }
 
         return "Livro{" +
@@ -94,6 +105,7 @@ public class Livro {
                 ", status=" + statusStri +
                 ", qntdPaginas=" + qntdPaginas +
                 ", ISBN=" + ISBN +
+                ", % Páginas revisadas: " + paginasRevisadas +
                 '}';
     }
 }

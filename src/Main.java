@@ -1,14 +1,17 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    static Scanner sc = new Scanner(System.in);
-    static Pessoa usuario;
+    public static Scanner sc = new Scanner(System.in);
+    public static Pessoa usuario;
 
     public static void main(String[] args) {
-        Editora rocco = new Editora("Rocco", "74599856000161");
-        Editora intrinseca = new Editora("Intrínseca", "20388395000159");
-        Editora arqueiro = new Editora("Arqueiro", "65504629000114");
+        Editora.listaEditoras.add(new Editora("Rocco", "1"));
+        Editora.listaEditoras.add(new Editora("Intrínseca", "2"));
+        Editora.listaEditoras.add(new Editora("Arqueiro", "3"));
         Pessoa.listaPessoas.add(new Diretor("11209407965", "Leonardo", "Rafaelli", "leonardorafaelli@gmail.com", "Masculino", "123"));
+        Pessoa.listaPessoas.add(new Revisor("1","1", "1", "1", "1", "1"));
+        Pessoa.listaPessoas.add(new Autor("2","2", "2", "2", "2", "2"));
         menuLogin();
     }
 
@@ -62,25 +65,20 @@ public class Main {
 
     private static void menuPrincipal(int pessoa){
         switch (pessoa){
-            case 1 -> {
-                System.out.print("\n---MENU AUTOR---" +
-                        "\n1 - Cadastrar um livro;" +
-                        "\n2 - Listar meus livros;" +
-                        "\n3 - Livros a editar;");
-            }
-            case 2 -> {
-                System.out.print("\n---MENU REVISOR---" +
+            case 1 -> System.out.print("\n---MENU AUTOR---" +
+                    "\n1 - Cadastrar um livro;" +
+                    "\n2 - Listar meus livros;" +
+                    "\n3 - Livros a editar;");
+            case 2 -> System.out.print("\n---MENU REVISOR---" +
                         "\n1 - Listar atividades;" +
                         "\n2 - Listar livros;" +
                         "\n3 - Editar livros;");
-            }
-            case 3 -> {
-                System.out.print("\n---MENU DIRETOR---" +
+            case 3 -> System.out.print("\n---MENU DIRETOR---" +
                         "\n1 - Editar livros;" +
                         "\n2 - Listar atividades;" +
                         "\n3 - Cadastrar Revisor;" +
                         "\n4 - Listar livros;");
-            }
+
         }
         System.out.print("\n5 - Sair.\n-->: ");
         int decisao = sc.nextInt();
@@ -88,18 +86,22 @@ public class Main {
             if(usuario instanceof Autor){
                 switch (decisao){
                     case 1 -> cadastrarLivro();
-                    case 2 -> listarLivrosAutor();
-                    //case 3 -> editarLivros();
+                    case 2 -> usuario.listarLivros();
+                    case 3 -> usuario.editarLivro();
+                    case 4 -> usuario.listarAtividades();
                 }
             } else if(usuario instanceof Revisor){
                     switch (decisao){
-                        // case 1 -> listarAtividade();
-                        case 2 -> listarAguardandoRevisao();
-                        case 3 -> editarLivros();
+                        case 1 -> usuario.listarAtividades();
+                        case 2 -> usuario.listarLivros();
+                        case 3 -> usuario.editarLivro();
                     }
             } else if(usuario instanceof Diretor){
                 switch (decisao){
+                    case 1 -> usuario.editarLivro();
+                    case 2 -> usuario.listarAtividades();
                     case 3 -> cadastro(2);
+                    case 4 -> usuario.listarLivros();
                 }
             }
         } else {
@@ -107,6 +109,66 @@ public class Main {
         }
         menuPrincipal(pessoa);
     }
+
+    private static void menu(){
+        String[] opcoes = usuario.opcoes();
+        for(String opcao: opcoes){
+            System.out.println(opcao);
+        }
+        int escolha = sc.nextInt();
+        if(escolha == opcoes.length){
+            System.exit(0);
+        } else if(escolha == opcoes.length - 1){
+            menuLogin();
+        }else if(escolha >= 1 && escolha < opcoes.length){
+            if(usuario instanceof Autor){
+                switch (escolha){
+                    case 2 -> usuario.listarLivros();
+                }
+            } else if(usuario instanceof Revisor){
+                switch (escolha){
+                    case 2 -> usuario.listarLivros();
+                }
+            } else if(usuario instanceof Diretor){
+
+            }
+        } else {
+            menu();
+        }
+    }
+
+
+    public static void editaLivroDiretor(Livro livro){
+        System.out.println("---EDIÇÃO DO LIVRO: '" + livro.getTitulo() + "' ---");
+        System.out.print("\n1 - Publicar livro;" +
+                "\n2 - Reprovar livro;" +
+                "\n3 - Retornar para o revisor. (Caso haja alguma falha no livro)");
+        switch (sc.nextInt()){
+            case 1 -> {
+                System.out.println("Insira uma editora para o livro: '" + livro.getTitulo() + "'");
+                for(int i = 0; i < Editora.listaEditoras.size(); i++){
+                    System.out.println((i+1) + " - " + Editora.listaEditoras.get(i).toString());
+                }
+                System.out.print("Número da editora: ");
+                adicionaEditora(sc.nextInt(), livro);
+            }
+            case 2 -> {
+                livro.setStatus(5);
+                System.out.println("Livro reprovado!");
+            }
+            case 3 -> {
+                livro.setStatus(3);
+                System.out.println("Livro reenviado ao revisor!");
+            }
+        }
+    }
+
+    private static void adicionaEditora(int num, Livro livro){
+        livro.setEditora(Editora.listaEditoras.get(num-1));
+        livro.setStatus(6);
+        System.out.println("Livro publicado! Parabéns");
+    }
+
 
     private static void cadastrarLivro(){
         System.out.print("\n---CADASTRO DE LIVROS---" +
@@ -121,24 +183,7 @@ public class Main {
         System.out.println("Livro cadastrado com sucesso!!");
     }
 
-    private static void editarLivros(){
-        System.out.println("\n---LIVROS A EDITAR---");
-        for(int i = 0; i < Livro.listaLivros.size(); i++){
-            if(Livro.listaLivros.get(i).getStatus() == 3 || Livro.listaLivros.get(i).getStatus() == 2){
-                System.out.println(" - " + Livro.listaLivros.get(i).toString());
-            }
-        }
-        System.out.println("ISBN do livro a editar:" +
-                "\n-->: ");
-        int i = coletaLivro(sc.nextInt());
-        Livro livro = Livro.listaLivros.get(i);
-
-        if(i >= 0){
-            editaLivro(livro);
-        }
-    };
-
-    private static void editaLivro(Livro livro){
+    public static void editaLivro(Livro livro, ArrayList<Livro> listaLivrosRevisor){
         System.out.println("---EDIÇÃO DO LIVRO: '" + livro.getTitulo() + "' ---");
         if(livro.getStatus() == 3){
             System.out.print("Começar a revisão deste livro?" +
@@ -146,44 +191,52 @@ public class Main {
                     "\n2 - Não." +
                     "\n-->: ");
             switch (sc.nextInt()){
-                case 1 -> livro.setStatus(2);
+                case 1 -> { livro.setStatus(2);
+                    listaLivrosRevisor.add(livro);
+                System.out.print("Livro em revisão!"); }
             }
         } else {
             System.out.print("1 - Aprovar livro (Será enviado ao diretor);" +
                     "\n2 - Mandar para reedição (Será enviado para o autor);" +
-                    "\n3 - Reprovar livro (Será cancelado)." +
+                    "\n3 - Reprovar livro (Será cancelado);" +
+                    "\n4 - Atualizar a quantidade de páginas revisadas." +
                     "\n-->: ");
+            switch (sc.nextInt()){
+                case 1 -> {
+                    livro.setStatus(1);
+                    System.out.println("Livro aprovado!");}
+                case 2 -> {
+                    livro.setStatus(4);
+                    System.out.println("Livro enviado para reedição!");
+                }
+                case 3 -> {
+                    livro.setStatus(5);
+                    System.out.println("Livro reprovado!");
+                }
+                case 4 -> {
+                    System.out.print("Insira a quantidade de páginas revisadas: ");
+                    double revisao = sc.nextDouble();
+                    livro.setPaginasRevisadas((revisao * 100) / (livro.getQntdPaginas() - livro.getPaginasRevisadas()));
+                }
+            }
         }
     }
 
-    private static int coletaLivro(int isbn){
+    public static int coletaLivro(){
+        for(int i = 0; i < Livro.listaLivros.size(); i++){
+            if(Livro.listaLivros.get(i).getStatus() == 3 || Livro.listaLivros.get(i).getStatus() == 2){
+                System.out.println(" - " + Livro.listaLivros.get(i).toString());
+            }
+        }
+        System.out.print("ISBN do livro a editar:" +
+                "\n-->: ");
+        int isbn = sc.nextInt();
         for(int i = 0; i < Livro.listaLivros.size(); i++){
             if(Livro.listaLivros.get(i).getISBN() == isbn){
                 return i;
             }
         }
         return -1;
-    }
-
-    private static void listarLivrosAutor(){
-        System.out.println("\n---MEUS LIVROS---");
-        for(int i = 0; i < Livro.listaLivros.size(); i++){
-            if(Livro.listaLivros.get(i).getAutor() == usuario){
-                System.out.println(" - " + Livro.listaLivros.get(i).toString());
-            }
-        }
-    }
-
-    private static void listarAguardandoRevisao() {
-
-        System.out.println("\n---LIVROS AGUARDANDO REVISÃO---");
-
-        for(int i = 0; i < Livro.listaLivros.size(); i++){
-            if(Livro.listaLivros.get(i).getStatus() == 3){
-                System.out.println(" - " + Livro.listaLivros.get(i).toString());
-            }
-        }
-
     }
 
     private static void cadastro(int opcao){
@@ -219,5 +272,4 @@ public class Main {
         }
     return null;
     };
-
 }

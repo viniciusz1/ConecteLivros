@@ -1,7 +1,13 @@
 import java.util.ArrayList;
 
-public class Pessoa {
+public abstract class Pessoa {
     private String CPF, nome, sobrenome, email, genero, senha;
+
+    public abstract void listarLivros();
+    public abstract void editarLivro();
+    public abstract String listarAtividades();
+    public abstract String[] opcoes();
+
     static ArrayList<Pessoa> listaPessoas = new ArrayList<>();
     public Pessoa(String CPF, String nome, String sobrenome, String email, String genero, String senha) {
         this.CPF = CPF;

@@ -219,10 +219,10 @@ public class Main {
                     "\n1 - Sim;" +
                     "\n2 - Não." +
                     "\n-->: ");
-            switch (sc.nextInt()){
-                case 1 -> { livro.setStatus(2);
-                    listaLivrosRevisor.add(livro);
-                System.out.print("Livro em revisão!"); }
+            if (sc.nextInt() == 1) {
+                livro.setStatus(2);
+                listaLivrosRevisor.add(livro);
+                System.out.print("Livro em revisão!");
             }
         } else {
             System.out.print("1 - Aprovar livro (Será enviado ao diretor);" +

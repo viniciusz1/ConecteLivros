@@ -1,7 +1,10 @@
+import Exceptions.CodigoInvalidoException;
+
 import java.util.ArrayList;
 
 public class Autor extends Pessoa{
     static ArrayList<Autor> listaAutores = new ArrayList<Autor>();
+
 
     @Override
     public void listarLivros() {
@@ -14,18 +17,18 @@ public class Autor extends Pessoa{
     }
 
     @Override
-    public void editarLivro() {
+    public void editarLivro() throws RuntimeException{
         for (int i = 0; i < Livro.listaLivros.size(); i++){
             if(Livro.listaLivros.get(i).getStatus() == 4){
                 System.out.println(" - " + Livro.listaLivros.get(i).toString());
             }
         }
-        int i = Main.coletaLivro();
+        int i = Main.coletaLivro(0);
         if(i > -1){
             Livro.listaLivros.get(i).setStatus(3);
             System.out.println("Livro reenviado a edição!");
         } else {
-            System.out.println("ISBN inválido!");
+            throw new CodigoInvalidoException();
         }
     }
 

@@ -1,3 +1,8 @@
+import Exceptions.BaixaQtdPaginasException;
+import Exceptions.LivroExistenteException;
+import Exceptions.OpcaoInvalidaException;
+import Exceptions.UsuarioSenhaIncorretoException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,10 +17,24 @@ public class Main {
         Pessoa.listaPessoas.add(new Diretor("11209407965", "Leonardo", "Rafaelli", "leonardorafaelli@gmail.com", "Masculino", "123"));
         Pessoa.listaPessoas.add(new Revisor("1","1", "1", "1", "1", "1"));
         Pessoa.listaPessoas.add(new Autor("2","2", "2", "2", "2", "2"));
-        menuLogin();
+
+
+        try{
+            menuLogin();
+        }catch (RuntimeException e){
+            System.out.println("\nClasse do erro:");
+            System.out.println(e.getClass().getSimpleName());
+            if(usuario instanceof Autor){
+                menuPrincipal(1);
+            } else if(usuario instanceof Revisor){
+                menuPrincipal(2);
+            } else {
+                menuPrincipal(3);
+            }
+        }
     }
 
-    private static void menuLogin(){
+    private static void menuLogin() throws RuntimeException{
         System.out.print("\n---MENU---" +
                 "\n1 - Logar" +
                 "\n2 - Cadastrar-se" +
@@ -31,7 +50,7 @@ public class Main {
         menuLogin();
     }
 
-    private static void login() {
+    private static void login() throws RuntimeException{
         System.out.print("\n---LOGIN---" +
                 "\nDigite seu email: ");
         String email = sc.next();
@@ -39,31 +58,30 @@ public class Main {
         String senha = sc.next();
 //
         int i = verifica(email, senha);
+
+
         usuario = Pessoa.listaPessoas.get(i);
-        if (i > -1) {
-            if (usuario instanceof Autor) {
-                menuPrincipal(1);
-            } else if (usuario instanceof Revisor) {
-                menuPrincipal(2);
-            } else {
-                menuPrincipal(3);
-            }
+        if (usuario instanceof Autor) {
+            menuPrincipal(1);
+        } else if (usuario instanceof Revisor) {
+            menuPrincipal(2);
         } else {
-            System.out.println("Email e/ou senha incorretos!");
-            login();
+            menuPrincipal(3);
         }
+        login();
+
     }
 
-    private static int verifica(String email, String senha){
+    private static int verifica(String email, String senha) throws RuntimeException{
         for (int i = 0; i < Pessoa.listaPessoas.size(); i++) {
             if (Pessoa.listaPessoas.get(i).getEmail().equals(email) && Pessoa.listaPessoas.get(i).getSenha().equals(senha)) {
                 return i;
             }
         }
-        return -1;
+        throw new UsuarioSenhaIncorretoException();
     }
 
-    private static void menuPrincipal(int pessoa){
+    private static void menuPrincipal(int pessoa) throws RuntimeException{
         switch (pessoa){
             case 1 -> System.out.print("\n---MENU AUTOR---" +
                     "\n1 - Cadastrar um livro;" +
@@ -82,7 +100,7 @@ public class Main {
         }
         System.out.print("\n5 - Sair.\n-->: ");
         int decisao = sc.nextInt();
-        if(decisao != 5){
+        if(decisao < 5){
             if(usuario instanceof Autor){
                 switch (decisao){
                     case 1 -> cadastrarLivro();
@@ -104,8 +122,10 @@ public class Main {
                     case 4 -> usuario.listarLivros();
                 }
             }
-        } else {
+        } else if(decisao == 5){
             menuLogin();
+        } else {
+            throw new OpcaoInvalidaException();
         }
         menuPrincipal(pessoa);
     }
@@ -170,15 +190,24 @@ public class Main {
     }
 
 
-    private static void cadastrarLivro(){
+    private static void cadastrarLivro() throws RuntimeException{
         System.out.print("\n---CADASTRO DE LIVROS---" +
                 "\nInsira as seguintes informações:" +
                 "\nTítulo: ");
         String titulo = sc.next();
         System.out.print("Quantidade de páginas: ");
         int qntdPaginas = sc.nextInt();
+        if(qntdPaginas < 50){
+            throw new BaixaQtdPaginasException();
+        }
         System.out.print("Código ISBN: ");
         int isbn = sc.nextInt();
+
+        int verifica = coletaLivro(1);
+        if(verifica != -1){
+            throw new LivroExistenteException();
+        };
+
         Livro.listaLivros.add(new Livro((Autor)usuario, titulo, 3, isbn, qntdPaginas));
         System.out.println("Livro cadastrado com sucesso!!");
     }
@@ -222,18 +251,27 @@ public class Main {
         }
     }
 
-    public static int coletaLivro(){
-        for(int i = 0; i < Livro.listaLivros.size(); i++){
-            if(Livro.listaLivros.get(i).getStatus() == 3 || Livro.listaLivros.get(i).getStatus() == 2){
-                System.out.println(" - " + Livro.listaLivros.get(i).toString());
+    public static int coletaLivro(int verifica){
+        if(verifica == 1){
+            for(int i = 0; i < Livro.listaLivros.size(); i++){
+                if(Livro.listaLivros.get(i).getISBN() == verifica){
+                    return i;
+                }
             }
-        }
-        System.out.print("ISBN do livro a editar:" +
-                "\n-->: ");
-        int isbn = sc.nextInt();
-        for(int i = 0; i < Livro.listaLivros.size(); i++){
-            if(Livro.listaLivros.get(i).getISBN() == isbn){
-                return i;
+        }else {
+            for(int i = 0; i < Livro.listaLivros.size(); i++){
+                if(Livro.listaLivros.get(i).getStatus() == 3 || Livro.listaLivros.get(i).getStatus() == 2){
+                    System.out.println(" - " + Livro.listaLivros.get(i).toString());
+                }
+            }
+
+            System.out.print("ISBN do livro a editar:" +
+                    "\n-->: ");
+            int isbn = sc.nextInt();
+            for(int i = 0; i < Livro.listaLivros.size(); i++){
+                if(Livro.listaLivros.get(i).getISBN() == isbn){
+                    return i;
+                }
             }
         }
         return -1;

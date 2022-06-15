@@ -1,3 +1,6 @@
+import Exceptions.CodigoInvalidoException;
+import Exceptions.LivroExistenteException;
+
 public class Diretor extends Pessoa{
 
     @Override
@@ -9,7 +12,7 @@ public class Diretor extends Pessoa{
     }
 
     @Override
-    public void editarLivro() {
+    public void editarLivro() throws RuntimeException{
         System.out.println("\n---LISTAGEM DE ATIVIDADES---");
         for (int i = 0; i < Livro.listaLivros.size(); i++){
             if(Livro.listaLivros.get(i).getStatus() == 1){
@@ -17,13 +20,13 @@ public class Diretor extends Pessoa{
             }
         }
 
-        int i = Main.coletaLivro();
+        int i = Main.coletaLivro(0);
 
         if(i > -1){
             Livro livro = Livro.listaLivros.get(i);
             Main.editaLivroDiretor(livro);
         } else {
-            System.out.println("ISBN inexistente!");
+            throw new CodigoInvalidoException();
         }
     }
 

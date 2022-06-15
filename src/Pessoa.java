@@ -4,7 +4,7 @@ public abstract class Pessoa {
     private String CPF, nome, sobrenome, email, genero, senha;
 
     public abstract void listarLivros();
-    public abstract void editarLivro();
+    public abstract void editarLivro() throws RuntimeException;
     public abstract String listarAtividades();
     public abstract String[] opcoes();
 

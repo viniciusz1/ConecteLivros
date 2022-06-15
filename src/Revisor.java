@@ -1,3 +1,5 @@
+import Exceptions.CodigoInvalidoException;
+
 import java.util.ArrayList;
 
 public class Revisor extends Pessoa{
@@ -16,15 +18,13 @@ public class Revisor extends Pessoa{
 
     @Override
     public void editarLivro() {
-
         System.out.println("\n---LIVROS A EDITAR---");
-        int i = Main.coletaLivro();
+        int i = Main.coletaLivro(0);
         if(i > -1){
             Livro livro = Livro.listaLivros.get(i);
             Main.editaLivro(livro, this.listaLivrosRevisor);
-
         } else {
-            System.out.println("ISBN inexistente");
+            throw new CodigoInvalidoException();
         }
     }
 

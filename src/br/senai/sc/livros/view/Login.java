@@ -1,6 +1,7 @@
 package br.senai.sc.livros.view;
 
 import br.senai.sc.livros.controller.PessoaController;
+import br.senai.sc.livros.model.entities.Pessoa;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,17 +22,26 @@ public class Login extends JFrame implements Runnable{
         logarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(pessoaController.validaLogin(emailInput.getText(), passwordInput.getText())){
-//                    dispose();
-                    new Menu();
+                if(emailInput.getText().isEmpty() || passwordInput.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Há campos vázios!");
+                } else {
+                    try{
+
+                        Pessoa pessoa = pessoaController.validaLogin(emailInput.getText(), passwordInput.getText());
+                        dispose();
+                        new Menu(pessoa);
+
+                    }catch (RuntimeException err){
+                        JOptionPane.showMessageDialog(null, err.getMessage());
+                    }
                 }
             }
         });
         CADASTRARSEButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                dispose();
                 new CadastroPessoa();
+                dispose();
             }
         });
     }
@@ -39,6 +49,7 @@ public class Login extends JFrame implements Runnable{
     private void criarComponentes(){
         setContentPane(login);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        run();
         pack();
     }
 
@@ -53,7 +64,6 @@ public class Login extends JFrame implements Runnable{
 
     public static void main(String[] args) {
         Login programa = new Login();
-        programa.run();
     }
 
 }

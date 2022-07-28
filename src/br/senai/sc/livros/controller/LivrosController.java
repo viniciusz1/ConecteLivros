@@ -1,9 +1,6 @@
 package br.senai.sc.livros.controller;
 
-import br.senai.sc.livros.model.entities.Autor;
-import br.senai.sc.livros.model.entities.Editora;
-import br.senai.sc.livros.model.entities.Livro;
-import br.senai.sc.livros.model.entities.Status;
+import br.senai.sc.livros.model.entities.*;
 //Objeto que vai intermediar a view com a classe livros;
 //Livro livro = new Livro(new Autor("123","Leo","Rafaelli","leonardo@gmail.com","masc","123"), "Fourteen Ways To Do It", 3, 7000, 1243578);
 //LivrosView livroView = new LivroView();
@@ -66,5 +63,10 @@ public class LivrosController {
 
     public void setPaginasRevisadas(double paginasRevisadas) {
         livro.setPaginasRevisadas(paginasRevisadas);
+    }
+
+    public void cadastrar(String titulo, String isbn, String qtdPag, Pessoa autor){
+       livro = new Livro();
+       livro = Livro.cadastrar(titulo, Integer.parseInt(isbn), Integer.parseInt(qtdPag), (Autor)autor);
     }
 }

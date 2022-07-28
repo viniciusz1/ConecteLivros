@@ -33,8 +33,24 @@ public class CadastroPessoa extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 PessoaController controller = new PessoaController();
 
-                controller.cadastrar(nomeInput.getText(), sobrenomeInput.getText(), emailInput.getText(), generoInput.getSelectedItem(), senhaInput.getText(), cpfInput.getText());
-                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                if(     nomeInput.getText().isEmpty() ||
+                        sobrenomeInput.getText().isEmpty() ||
+                        emailInput.getText().isEmpty() ||
+                        cpfInput.getText().isEmpty() ||
+                        senhaInput.getText().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(null, "Há campos não preenchidos!");
+                } else {
+                    try{
+                        controller.cadastrar(nomeInput.getText(), sobrenomeInput.getText(), emailInput.getText(), generoInput.getSelectedItem(), senhaInput.getText(), cpfInput.getText(), confirmaSenhaInput.getText());
+                        JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                        new Login();
+                        dispose();
+                    } catch (RuntimeException err){
+                        JOptionPane.showMessageDialog(null, err.getMessage());
+                    }
+                }
+
             }
         });
     }

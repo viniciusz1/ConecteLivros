@@ -29,6 +29,10 @@ public class Livro {
         this.ISBN = ISBN;
     }
 
+    public static Livro cadastrar(String titulo, int isbn, int qtdPag, Autor autor){
+        return new Livro(autor, titulo, Status.AGUARDANDO_REVISAO, qtdPag, isbn);
+    }
+
     public Autor getAutor() {
         return autor;
     }
@@ -85,10 +89,12 @@ public class Livro {
         this.paginasRevisadas = paginasRevisadas;
     }
 
+
+
+
     @Override
     public String toString() {
         String statusStri = null, editoraNome = null;
-
 
         if(editora == null){
             editoraNome = "Livro não publicado";

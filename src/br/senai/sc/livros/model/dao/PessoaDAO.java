@@ -21,7 +21,7 @@ public class PessoaDAO {
         for(Pessoa pessoa : listaPessoas){
             if(pessoa.getCPF().equals(CPF)) return pessoa;
         }
-        return null;
+        throw new RuntimeException("CPF não encontrado!");
     }
     public Pessoa selecionarPorEmail(String email){
         for(Pessoa pessoa : listaPessoas){
@@ -29,6 +29,6 @@ public class PessoaDAO {
                 return pessoa;
             }
         }
-        return null;
+        throw new RuntimeException("Email não encontrado!");
     }
 }

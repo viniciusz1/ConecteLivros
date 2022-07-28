@@ -6,7 +6,7 @@ public class Livro {
     private Autor autor;
     private Editora editora;
     private String titulo;
-    private int status;
+    private Status status;
 //    1 - Aprovado
 //    2 - Em revisão
 //    3 - Aguardando revisão
@@ -21,7 +21,7 @@ public class Livro {
 
     public Livro(){};
 
-    public Livro(Autor autor, String titulo, int status, int qntdPaginas, int ISBN) {
+    public Livro(Autor autor, String titulo, Status status, int qntdPaginas, int ISBN) {
         this.autor = autor;
         this.titulo = titulo;
         this.status = status;
@@ -53,11 +53,11 @@ public class Livro {
         this.titulo = titulo;
     }
 
-    public int getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -88,13 +88,7 @@ public class Livro {
     @Override
     public String toString() {
         String statusStri = null, editoraNome = null;
-        switch(status){
-            case 1 -> statusStri = "Aprovado";
-            case 2 -> statusStri = "Em revisão";
-            case 3 -> statusStri = "Aguardando revisão";
-            case 4 -> statusStri = "Aguardando edição";
-            case 5 -> statusStri = "Reprovado";
-        }
+
 
         if(editora == null){
             editoraNome = "Livro não publicado";
@@ -106,7 +100,7 @@ public class Livro {
                 "autor=" + autor.getNome() +
                 ", editora=" + editoraNome +
                 ", titulo='" + titulo + '\'' +
-                ", status=" + statusStri +
+                ", status=" + status.nome +
                 ", qntdPaginas=" + qntdPaginas +
                 ", ISBN=" + ISBN +
                 ", % Páginas revisadas: " + paginasRevisadas +

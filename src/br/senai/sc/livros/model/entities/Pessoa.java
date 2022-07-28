@@ -2,17 +2,18 @@ package br.senai.sc.livros.model.entities;
 
 import java.util.ArrayList;
 
-public abstract class Pessoa {
-    private String CPF, nome, sobrenome, email, genero, senha;
+public class Pessoa {
+    private String CPF, nome, sobrenome, email, senha;
+    private Genero genero;
 
-    public abstract void listarLivros();
-    public abstract void editarLivro() throws RuntimeException;
-    public abstract String listarAtividades();
-    public abstract String[] opcoes();
+//    public abstract void listarLivros();
+//    public abstract void editarLivro() throws RuntimeException;
+//    public abstract String listarAtividades();
+//    public abstract String[] opcoes();
 
     static ArrayList<Pessoa> listaPessoas = new ArrayList<>();
 
-    public Pessoa(String CPF, String nome, String sobrenome, String email, String genero, String senha) {
+    public Pessoa(String CPF, String nome, String sobrenome, String email, Genero genero, String senha) {
         this.CPF = CPF;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -54,11 +55,11 @@ public abstract class Pessoa {
         this.email = email;
     }
 
-    public String getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
@@ -87,5 +88,7 @@ public abstract class Pessoa {
                 '}';
     }
 
-//    public abstract Pessoa cadastrar(String nome, String sobrenome, String email, String genero, String senha);
+    public static Pessoa cadastrar(String nome, String sobrenome, String email, Genero genero, String senha, String cpf){
+        return new Pessoa(cpf,nome,sobrenome,email,genero,senha);
+    };
 }

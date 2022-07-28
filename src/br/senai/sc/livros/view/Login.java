@@ -22,7 +22,7 @@ public class Login extends JFrame implements Runnable{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(pessoaController.validaLogin(emailInput.getText(), passwordInput.getText())){
-                    dispose();
+//                    dispose();
                     new Menu();
                 }
             }
@@ -30,7 +30,7 @@ public class Login extends JFrame implements Runnable{
         CADASTRARSEButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+//                dispose();
                 new CadastroPessoa();
             }
         });

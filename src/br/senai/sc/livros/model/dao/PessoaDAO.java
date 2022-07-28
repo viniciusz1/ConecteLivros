@@ -18,9 +18,17 @@ public class PessoaDAO {
     }
 
     public Pessoa selecionarPorCPF(String CPF){
-        return (Pessoa)listaPessoas.stream().filter((Pessoa e) -> e.getCPF().equals(CPF));
+        for(Pessoa pessoa : listaPessoas){
+            if(pessoa.getCPF().equals(CPF)) return pessoa;
+        }
+        return null;
     }
     public Pessoa selecionarPorEmail(String email){
-        return (Pessoa)listaPessoas.stream().filter((Pessoa e) -> e.getEmail().equals(email));
+        for(Pessoa pessoa : listaPessoas){
+            if(pessoa.getEmail().equals(email)){
+                return pessoa;
+            }
+        }
+        return null;
     }
 }

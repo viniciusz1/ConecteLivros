@@ -44,8 +44,14 @@ public class CadastroPessoa extends JFrame{
                     try{
                         controller.cadastrar(nomeInput.getText(), sobrenomeInput.getText(), emailInput.getText(), generoInput.getSelectedItem(), senhaInput.getText(), cpfInput.getText(), confirmaSenhaInput.getText());
                         JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
-                        new Login();
-                        dispose();
+                        if(Menu.getUsuario() == null){
+
+                            new Login();
+                            dispose();
+                        } else {
+                            Menu menu = new Menu(Menu.getUsuario());
+                            menu.setVisible(true);
+                        }
                     } catch (RuntimeException err){
                         JOptionPane.showMessageDialog(null, err.getMessage());
                     }

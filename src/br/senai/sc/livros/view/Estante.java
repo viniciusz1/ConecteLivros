@@ -1,4 +1,6 @@
 package br.senai.sc.livros.view;
 
-public class Estante {
+import javax.swing.*;
+
+public class Estante extends JFrame {
 }

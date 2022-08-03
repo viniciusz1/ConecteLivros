@@ -1,13 +1,22 @@
 package br.senai.sc.livros.model.dao;
 
-import br.senai.sc.livros.model.entities.Livro;
-import br.senai.sc.livros.model.entities.Pessoa;
+import br.senai.sc.livros.model.entities.*;
 
 import java.util.ArrayList;
 
 public class PessoaDAO {
-    private static ArrayList<Pessoa> listaPessoas = new ArrayList();
+    private static final ArrayList<Pessoa> listaPessoas = new ArrayList<>();
 
+//    (String CPF, String nome, String sobrenome, String email, Genero genero, String senha
+
+    static{
+        listaPessoas.add(new Autor("12435678", "Leozin", "Rafaellizin",
+                "autor@", Genero.MASCULINO, "123"));
+        listaPessoas.add(new Revisor("12435678", "Leozin", "Rafaellizin",
+                "revisor@", Genero.MASCULINO, "123"));
+        listaPessoas.add(new Diretor("12435678", "Leozin", "Rafaellizin",
+                "diretor@", Genero.MASCULINO, "123"));
+    }
 
     public void inserir(Pessoa pessoa){
         listaPessoas.add(pessoa);

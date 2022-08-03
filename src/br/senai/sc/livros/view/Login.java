@@ -29,6 +29,7 @@ public class Login extends JFrame implements Runnable{
 
                         Pessoa pessoa = pessoaController.validaLogin(emailInput.getText(), passwordInput.getText());
                         dispose();
+
                         new Menu(pessoa);
 
                     }catch (RuntimeException err){

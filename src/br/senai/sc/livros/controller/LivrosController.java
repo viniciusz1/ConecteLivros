@@ -7,66 +7,65 @@ import br.senai.sc.livros.model.entities.*;
 
 public class LivrosController {
 
-        Livro livro = new Livro();
+    Livro model = new Livro();
 
     public Autor getAutor() {
-        return livro.getAutor();
+        return model.getAutor();
     }
 
     public void setAutor(Autor autor) {
-        livro.setAutor(autor);
+        model.setAutor(autor);
     }
 
     public Editora getEditora() {
-        return livro.getEditora();
+        return model.getEditora();
     }
 
     public void setEditora(Editora editora) {
-        livro.setEditora(editora);
+        model.setEditora(editora);
     }
 
     public String getTitulo() {
-        return livro.getTitulo();
+        return model.getTitulo();
     }
 
     public void setTitulo(String titulo) {
-        livro.setTitulo(titulo);
+        model.setTitulo(titulo);
     }
 
     public Status getStatus() {
-        return livro.getStatus();
+        return model.getStatus();
     }
 
     public void setStatus(Status status) {
-        livro.setStatus(status);
+        model.setStatus(status);
     }
 
     public int getQntdPaginas() {
-        return livro.getQntdPaginas();
+        return model.getQntdPaginas();
     }
 
     public void setQntdPaginas(int qntdPaginas) {
-        livro.setQntdPaginas(qntdPaginas);
+        model.setQntdPaginas(qntdPaginas);
     }
 
     public int getISBN() {
-        return livro.getISBN();
+        return model.getISBN();
     }
 
     public void setISBN(int ISBN) {
-        livro.setISBN(ISBN);
+        model.setISBN(ISBN);
     }
 
     public double getPaginasRevisadas() {
-        return livro.getPaginasRevisadas();
+        return model.getPaginasRevisadas();
     }
 
     public void setPaginasRevisadas(double paginasRevisadas) {
-        livro.setPaginasRevisadas(paginasRevisadas);
+        model.setPaginasRevisadas(paginasRevisadas);
     }
 
     public void cadastrar(String titulo, String isbn, String qtdPag, Pessoa autor){
-       livro = new Livro();
-       livro = Livro.cadastrar(titulo, Integer.parseInt(isbn), Integer.parseInt(qtdPag), (Autor)autor);
+       model = Livro.cadastrar(titulo, Integer.parseInt(isbn), Integer.parseInt(qtdPag), (Autor)autor);
     }
 }

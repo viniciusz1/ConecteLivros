@@ -28,6 +28,19 @@ public class CadastroLivro extends JFrame{
             } else {
                 LivrosController controller = new LivrosController();
                 controller.cadastrar(titulo, isbn, qtdPag, usuario);
+                JOptionPane.showMessageDialog(null, "Livro cadastrado com sucesso!");
+                dispose();
+                Menu menu = new Menu(usuario);
+                menu.setVisible(true);
+            }
+
+        });
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                Menu menu = new Menu(Menu.getUsuario());
+                menu.setVisible(true);
             }
         });
     }

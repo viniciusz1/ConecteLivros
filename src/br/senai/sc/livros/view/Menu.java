@@ -58,6 +58,7 @@ public class Menu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("cadastrarLivro")) {
+            dispose();
             CadastroLivro cadastroLivro = new CadastroLivro(usuario);
             cadastroLivro.setVisible(true);
         } else if (e.getActionCommand().equals("listarLivros")) {
@@ -68,11 +69,12 @@ public class Menu extends JFrame implements ActionListener {
             Estante estante = new Estante(2);
             estante.setVisible(true);
         } else if (e.getActionCommand().equals("cadastrarRevisor")) {
+            dispose();
             CadastroPessoa cadastroPessoa = new CadastroPessoa();
             cadastroPessoa.setVisible(true);
         } else if (e.getActionCommand().equals("sair")) {
-            usuario = null;
             dispose();
+            usuario = null;
             Login login = new Login();
             login.setVisible(true);
         }

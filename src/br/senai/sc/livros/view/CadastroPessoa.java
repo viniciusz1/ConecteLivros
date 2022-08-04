@@ -37,8 +37,8 @@ public class CadastroPessoa extends JFrame {
                     controller.cadastrar(nomeInput.getText(), sobrenomeInput.getText(), emailInput.getText(), generoInput.getSelectedItem(), senhaInput.getText(), cpfInput.getText(), confirmaSenhaInput.getText());
                     JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
                     if (Menu.getUsuario() == null) {
-                        new Login();
                         dispose();
+                        new Login();
                     } else {
                         dispose();
                         voltar();

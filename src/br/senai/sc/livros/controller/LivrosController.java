@@ -70,7 +70,9 @@ public class LivrosController {
     }
 
     public void cadastrar(String titulo, String isbn, String qtdPag, Pessoa autor){
+        LivroService service = new LivroService();
        model = Livro.cadastrar(titulo, Integer.parseInt(isbn), Integer.parseInt(qtdPag), (Autor)autor);
+       service.inserir(model);
     }
 
     public ArrayList<Livro> selecionarLista(int lista){

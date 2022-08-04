@@ -2,6 +2,7 @@ package br.senai.sc.livros.controller;
 
 import br.senai.sc.livros.model.entities.*;
 import br.senai.sc.livros.model.service.LivroService;
+import br.senai.sc.livros.view.Menu;
 
 import java.util.ArrayList;
 //Objeto que vai intermediar a view com a classe livros;
@@ -72,8 +73,27 @@ public class LivrosController {
        model = Livro.cadastrar(titulo, Integer.parseInt(isbn), Integer.parseInt(qtdPag), (Autor)autor);
     }
 
-    public ArrayList<Livro> getAllLivros(){
+    public ArrayList<Livro> selecionarLista(int lista){
         LivroService  livroService = new LivroService();
-        return livroService.getAllLivros();
+        Pessoa usuario = Menu.getUsuario();
+        if(usuario instanceof Autor){
+            if(lista == 1){
+                return livroService.selecionarPorAutor(usuario);
+            }else{
+                return livroService.selecionarAtividadesAutor(usuario);
+            }
+        }else if(usuario instanceof Revisor){
+            if(lista == 1){
+                return livroService.selecionarPorStatus(Status.AGUARDANDO_REVISAO);
+            }else{
+                return livroService.selecionarPorStatus(Status.EM_REVISAO);
+            }
+        }else{
+            if(lista == 1){
+                return livroService.selecionarLista();
+            } else{
+                return livroService.selecionarPorStatus(Status.APROVADO);
+            }
+        }
     };
 }

@@ -3,6 +3,8 @@ package br.senai.sc.livros.model.service;
 import br.senai.sc.livros.model.dao.LivroDAO;
 import br.senai.sc.livros.model.entities.Livro;
 
+import java.util.ArrayList;
+
 public class LivroService {
     LivroDAO bd = new LivroDAO();
 
@@ -20,5 +22,9 @@ public class LivroService {
 
     public void atualizar(int isbn, Livro livroAtualizado) {
         bd.atualizar(isbn, livroAtualizado);
+    }
+
+    public ArrayList<Livro> getAllLivros(){
+        return bd.getAllLivros();
     }
 }

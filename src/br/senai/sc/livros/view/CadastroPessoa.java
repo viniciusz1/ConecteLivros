@@ -4,10 +4,8 @@ import br.senai.sc.livros.controller.PessoaController;
 import br.senai.sc.livros.model.entities.Genero;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class CadastroPessoa extends JFrame{
+public class CadastroPessoa extends JFrame {
     private JButton voltarButton;
     private JButton cadastrarButton;
     private JPanel cadastroPessoa;
@@ -21,44 +19,41 @@ public class CadastroPessoa extends JFrame{
 
     public CadastroPessoa() {
         criarComponentes();
-        voltarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Login().run();
-                dispose();
-            }
+        voltarButton.addActionListener(e -> {
+            new Login();
+            dispose();
         });
-        cadastrarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PessoaController controller = new PessoaController();
+        cadastrarButton.addActionListener(e -> {
+            PessoaController controller = new PessoaController();
 
-                if(     nomeInput.getText().isEmpty() ||
-                        sobrenomeInput.getText().isEmpty() ||
-                        emailInput.getText().isEmpty() ||
-                        cpfInput.getText().isEmpty() ||
-                        senhaInput.getText().isEmpty())
-                {
-                    JOptionPane.showMessageDialog(null, "Há campos não preenchidos!");
-                } else {
-                    try{
-                        controller.cadastrar(nomeInput.getText(), sobrenomeInput.getText(), emailInput.getText(), generoInput.getSelectedItem(), senhaInput.getText(), cpfInput.getText(), confirmaSenhaInput.getText());
-                        JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
-                        if(Menu.getUsuario() == null){
-
-                            new Login();
-                            dispose();
-                        } else {
-                            Menu menu = new Menu(Menu.getUsuario());
-                            menu.setVisible(true);
-                        }
-                    } catch (RuntimeException err){
-                        JOptionPane.showMessageDialog(null, err.getMessage());
+            if (nomeInput.getText().isEmpty() ||
+                    sobrenomeInput.getText().isEmpty() ||
+                    emailInput.getText().isEmpty() ||
+                    cpfInput.getText().isEmpty() ||
+                    senhaInput.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Há campos não preenchidos!");
+            } else {
+                try {
+                    controller.cadastrar(nomeInput.getText(), sobrenomeInput.getText(), emailInput.getText(), generoInput.getSelectedItem(), senhaInput.getText(), cpfInput.getText(), confirmaSenhaInput.getText());
+                    JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                    if (Menu.getUsuario() == null) {
+                        new Login();
+                        dispose();
+                    } else {
+                        dispose();
+                        voltar();
                     }
+                } catch (RuntimeException err) {
+                    JOptionPane.showMessageDialog(null, err.getMessage());
                 }
-
             }
+
         });
+    }
+
+    private void voltar() {
+        Menu menu = new Menu(Menu.getUsuario());
+        menu.setVisible(true);
     }
 
     public void criarComponentes() {

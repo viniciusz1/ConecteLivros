@@ -38,12 +38,9 @@ public class Login extends JFrame implements Runnable{
                 }
             }
         });
-        CADASTRARSEButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new CadastroPessoa();
-                dispose();
-            }
+        CADASTRARSEButton.addActionListener(e -> {
+            new CadastroPessoa();
+            dispose();
         });
     }
 

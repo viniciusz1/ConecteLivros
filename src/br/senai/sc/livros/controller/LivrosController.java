@@ -102,7 +102,11 @@ public class LivrosController {
 
     public void editarLivro(String isbn) {
         LivroService livroService = new LivroService();
-        livroService.selecionar(Integer.parseInt(isbn));
+        Livro livroAtualizado = livroService.selecionar(Integer.parseInt(isbn));
+        if(Menu.getUsuario() instanceof Autor){
+            livroAtualizado.setStatus(Status.AGUARDANDO_REVISAO);
+        }
+        livroService.atualizar(Integer.parseInt(isbn), livroAtualizado);
     }
 
     ;

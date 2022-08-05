@@ -1,5 +1,7 @@
 package br.senai.sc.livros.model.entities;
 
+import br.senai.sc.livros.view.Menu;
+
 import java.util.ArrayList;
 
 public class Pessoa {
@@ -71,35 +73,35 @@ public class Pessoa {
         this.senha = senha;
     }
 
-    public Pessoa validaLogin(String senha){
-        if(this.getSenha().equals(senha)){
+    public Pessoa validaLogin(String senha) {
+        if (this.getSenha().equals(senha)) {
             return this;
-        };
+        }
+        ;
         throw new RuntimeException("Senha incorreta!");
     }
 
 
     @Override
     public String toString() {
-        return "Pessoa{" +
-                "CPF='" + CPF + '\'' +
-                ", nome='" + nome + '\'' +
-                ", sobrenome='" + sobrenome + '\'' +
-                ", email='" + email + '\'' +
-                ", genero='" + genero + '\'' +
-                ", senha='" + senha + '\'' +
-                '}';
+        return nome + " " + sobrenome;
     }
 
-    public static Pessoa cadastrar(String nome, String sobrenome, String email, Genero genero, String senha, String cpf, String confSenha){
-        if(senha.equals(confSenha)){
-            if(email.contains("@")){
-                return new Pessoa(cpf,nome,sobrenome,email,genero,senha);
+    public static Pessoa cadastrar(String nome, String sobrenome, String email, Genero genero, String senha, String cpf, String confSenha) {
+        if (senha.equals(confSenha)) {
+            if (email.contains("@")) {
+                if (Menu.getUsuario() instanceof Diretor) {
+                    return new Revisor(cpf, nome, sobrenome, email, genero, senha);
+                } else {
+                    return new Autor(cpf, nome, sobrenome, email, genero, senha);
+                }
             } else {
                 throw new RuntimeException("Email inválido!");
             }
         } else {
             throw new RuntimeException("Senhas não conferem!");
         }
-    };
+    }
+
+    ;
 }

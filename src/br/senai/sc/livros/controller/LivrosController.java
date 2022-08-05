@@ -69,33 +69,41 @@ public class LivrosController {
         model.setPaginasRevisadas(paginasRevisadas);
     }
 
-    public void cadastrar(String titulo, String isbn, String qtdPag, Pessoa autor){
+    public void cadastrar(String titulo, String isbn, String qtdPag, Pessoa autor) {
+        Livro livro;
         LivroService service = new LivroService();
-       model = Livro.cadastrar(titulo, Integer.parseInt(isbn), Integer.parseInt(qtdPag), (Autor)autor);
-       service.inserir(model);
+        livro = Livro.cadastrar(titulo, Integer.parseInt(isbn), Integer.parseInt(qtdPag), (Autor) autor);
+        service.inserir(livro);
     }
 
-    public ArrayList<Livro> selecionarLista(int lista){
-        LivroService  livroService = new LivroService();
+    public ArrayList<Livro> selecionarLista(int lista) {
+        LivroService livroService = new LivroService();
         Pessoa usuario = Menu.getUsuario();
-        if(usuario instanceof Autor){
-            if(lista == 1){
+        if (usuario instanceof Autor) {
+            if (lista == 1) {
                 return livroService.selecionarPorAutor(usuario);
-            }else{
+            } else {
                 return livroService.selecionarAtividadesAutor(usuario);
             }
-        }else if(usuario instanceof Revisor){
-            if(lista == 1){
+        } else if (usuario instanceof Revisor) {
+            if (lista == 1) {
                 return livroService.selecionarPorStatus(Status.AGUARDANDO_REVISAO);
-            }else{
+            } else {
                 return livroService.selecionarPorStatus(Status.EM_REVISAO);
             }
-        }else{
-            if(lista == 1){
+        } else {
+            if (lista == 1) {
                 return livroService.selecionarLista();
-            } else{
+            } else {
                 return livroService.selecionarPorStatus(Status.APROVADO);
             }
         }
-    };
+    }
+
+    public void editarLivro(String isbn) {
+        LivroService livroService = new LivroService();
+        livroService.selecionar(Integer.parseInt(isbn));
+    }
+
+    ;
 }

@@ -26,6 +26,10 @@ public class DefaultTableModelArrayList extends AbstractTableModel {
         return colunas.length;
     }
 
+    public Livro getLivro(int rowIndex){
+        return dados.get(rowIndex);
+    }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Livro livro = dados.get(rowIndex);

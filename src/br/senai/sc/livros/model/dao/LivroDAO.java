@@ -9,14 +9,14 @@ public class LivroDAO {
 
 //    Autor autor, String titulo, Status status, int qntdPaginas, int ISBN
     static{
-        listaLivros.add(new Livro(new Autor("12435678", "Leozin", "Rafaellizin",
+        listaLivros.add(new Livro(new Autor("12435678", "Vinícius", "Bonatti",
                         "autor@", Genero.MASCULINO, "123"),
                 "O fogo", Status.AGUARDANDO_REVISAO, 568, 1234));
-        listaLivros.add(new Livro(new Autor("123", "Bernadete", "#@!", "123@321", Genero.FEMININO, "123"),
+        listaLivros.add(new Livro(new Autor("123", "Fernando", "de Noronha", "123@321", Genero.FEMININO, "123"),
                 "A água", Status.AGUARDANDO_EDICAO, 348, 2345));
-        listaLivros.add(new Livro(new Autor("123", "Bernadete", "#@!", "123@321", Genero.FEMININO, "123"),
+        listaLivros.add(new Livro(new Autor("123", "Sergipe", "Minas", "123@321", Genero.FEMININO, "123"),
                 "A pedra", Status.AGUARDANDO_REVISAO, 346, 2542));
-        listaLivros.add(new Livro(new Autor("123", "Bernadete", "#@!", "123@321", Genero.FEMININO, "123"),
+        listaLivros.add(new Livro(new Autor("123", "Cliengle", "Binaudo", "123@321", Genero.FEMININO, "123"),
                 "O Henrique", Status.AGUARDANDO_REVISAO, 467, 4367));
     }
 

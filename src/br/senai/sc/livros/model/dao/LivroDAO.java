@@ -18,6 +18,13 @@ public class LivroDAO {
                 "A pedra", Status.AGUARDANDO_REVISAO, 346, 2542));
         listaLivros.add(new Livro(new Autor("123", "Cliengle", "Binaudo", "123@321", Genero.FEMININO, "123"),
                 "O Henrique", Status.AGUARDANDO_REVISAO, 467, 4367));
+    listaLivros.add(new Livro(new Autor("123", "Cliengle", "Binaudo", "123@321", Genero.FEMININO, "123"),
+            "O Henrique", Status.APROVADO, 467, 4363));
+    listaLivros.add(new Livro(new Autor("123", "Cliengle", "Binaudo", "123@321", Genero.FEMININO, "123"),
+            "O Henrique", Status.REPROVADO, 467, 4364));
+    listaLivros.add(new Livro(new Autor("123", "Cliengle", "Binaudo", "123@321", Genero.FEMININO, "123"),
+            "O Henrique", Status.REPROVADO, 467, 4365));
+
     }
 
 

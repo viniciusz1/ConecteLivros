@@ -100,6 +100,11 @@ public class LivrosController {
         }
     }
 
+    public void editarLivro(String isbn, Livro novoLivro) {
+        LivroService livroService = new LivroService();
+        livroService.atualizar(Integer.parseInt(isbn), novoLivro);
+    }
+
     public void editarLivro(String isbn) {
         LivroService livroService = new LivroService();
         Livro livroAtualizado = livroService.selecionar(Integer.parseInt(isbn));
@@ -109,5 +114,4 @@ public class LivrosController {
         livroService.atualizar(Integer.parseInt(isbn), livroAtualizado);
     }
 
-    ;
 }

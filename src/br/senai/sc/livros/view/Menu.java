@@ -65,14 +65,17 @@ public class Menu extends JFrame implements ActionListener {
             dispose();
             Estante estante = new Estante(1);
             estante.setVisible(true);
-        } else if (e.getActionCommand().equals("listarAtividades")) {
+        }
+        else if (e.getActionCommand().equals("listarAtividades")) {
             Estante estante = new Estante(2);
             estante.setVisible(true);
         } else if (e.getActionCommand().equals("cadastrarRevisor")) {
             dispose();
             CadastroPessoa cadastroPessoa = new CadastroPessoa();
             cadastroPessoa.setVisible(true);
-        } else if (e.getActionCommand().equals("sair")) {
+        } else if(e.getActionCommand().equals("editarLivros")){
+        }
+        else if (e.getActionCommand().equals("sair")) {
             dispose();
             usuario = null;
             Login login = new Login();

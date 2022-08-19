@@ -1,10 +1,7 @@
 package br.senai.sc.livros.view;
 
 import br.senai.sc.livros.controller.LivrosController;
-import br.senai.sc.livros.model.entities.Autor;
-import br.senai.sc.livros.model.entities.Livro;
-import br.senai.sc.livros.model.entities.Pessoa;
-import br.senai.sc.livros.model.entities.Status;
+import br.senai.sc.livros.model.entities.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +15,7 @@ public class CadastroLivro extends JFrame{
     private JTextField qtdPagInput;
     private JPanel cadastroLivro;
     private JComboBox select;
+    private JLabel labelTitulo;
 
     CadastroLivro(Pessoa usuario) {
         criarComponentes();
@@ -55,12 +53,24 @@ public class CadastroLivro extends JFrame{
         isbnInput.setText(Integer.toString(livro.getISBN()));
         isbnInput.disable();
         qtdPagInput.setText(Integer.toString(livro.getQntdPaginas()));
-        select.addItem(Status.APROVADO);
-        select.addItem(Status.REPROVADO);
-        select.addItem(Status.EM_REVISAO);
-        select.addItem(Status.AGUARDANDO_REVISAO);
-        select.addItem(Status.AGUARDANDO_EDICAO);
-        select.addItem(Status.PUBLICADO);
+        if(usuario instanceof Revisor){
+            select.addItem(Status.EM_REVISAO);
+            select.addItem(Status.APROVADO);
+        }else if(usuario instanceof Diretor){
+            select.addItem(Status.EM_REVISAO);
+            select.addItem(Status.APROVADO);
+            select.addItem(Status.REPROVADO);
+            select.addItem(Status.AGUARDANDO_REVISAO);
+            select.addItem(Status.AGUARDANDO_EDICAO);
+            select.addItem(Status.PUBLICADO);
+        }else if(usuario instanceof Autor){
+            select.addItem(Status.AGUARDANDO_EDICAO);
+            select.addItem(Status.AGUARDANDO_REVISAO);
+        }
+
+        cadastrarButton.setText("Editar");
+        labelTitulo.setText("Edição de livros");
+
         cadastrarButton.addActionListener(e -> {
             String titulo = tituloInput.getText();
             String isbn = isbnInput.getText();
@@ -75,6 +85,8 @@ public class CadastroLivro extends JFrame{
                 livro.setISBN(Integer.parseInt(isbn));
                 livro.setQntdPaginas(Integer.parseInt(qtdPag));
                 livro.setStatus((Status) select.getSelectedItem());
+
+
                 controller.editarLivro(isbn, livro);
                 JOptionPane.showMessageDialog(null, "Livro cadastrado com sucesso!");
                 dispose();

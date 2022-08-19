@@ -60,7 +60,7 @@ public class Estante extends JFrame {
         LivrosController livrosController = new LivrosController();
         tabelaLivros.setModel(new DefaultTableModelArrayList(livrosController.selecionarLista(opcao)));
         if (opcao == 1) {
-            editarButton.setVisible(false);
+            editarButton.setText("Começar edição");
         }else if (opcao == 2) {
             editarButton.setVisible(true);
         }

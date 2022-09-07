@@ -29,8 +29,13 @@ public class CadastroLivro extends JFrame{
                 JOptionPane.showMessageDialog(null, "Há campos vazios!");
             } else {
                 LivrosController controller = new LivrosController();
-                controller.cadastrar(titulo, isbn, qtdPag, usuario);
-                JOptionPane.showMessageDialog(null, "Livro cadastrado com sucesso!");
+                Boolean add = controller.cadastrar(titulo, isbn, qtdPag, usuario);
+                System.out.println(add);
+                if(add.equals(true)){
+                    JOptionPane.showMessageDialog(null, "Livro g cadastrado com sucesso!");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Livro não cadastrado com sucesso!");
+                }
                 dispose();
                 Menu menu = new Menu(usuario);
                 menu.setVisible(true);
@@ -81,14 +86,12 @@ public class CadastroLivro extends JFrame{
                 JOptionPane.showMessageDialog(null, "Há campos vazios!");
             } else {
                 LivrosController controller = new LivrosController();
-                Boolean add = controller.cadastrar(titulo, isbn, qtdPag, usuario);
-                System.out.println(add);
-                if(add.equals(true)){
-                    JOptionPane.showMessageDialog(null, "Livro g cadastrado com sucesso!");
-                }else{
-                    JOptionPane.showMessageDialog(null, "Livro não cadastrado com sucesso!");
-                }
+                livro.setTitulo(titulo);
+                livro.setISBN(Integer.parseInt(isbn));
+                livro.setQntdPaginas(Integer.parseInt(qtdPag));
+                livro.setStatus((Status) select.getSelectedItem());
                 controller.editarLivro(isbn, livro);
+                JOptionPane.showMessageDialog(null, "Livro editado com sucesso!");
                 dispose();
                 Menu menu = new Menu(usuario);
                 menu.setVisible(true);

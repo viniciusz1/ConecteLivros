@@ -36,7 +36,7 @@ public class Estante extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LivrosController livrosController = new LivrosController();
-                ArrayList<Livro> livros = livrosController.selecionarLista(opcao);
+                ArrayList<Livro> livros = (ArrayList<Livro>) livrosController.selecionarLista(opcao);
                 int isbn = (int) tabelaLivros.getValueAt(tabelaLivros.getSelectedRow(), 0);
 
                 if (tabelaLivros.getSelectedRow() == -1) {
@@ -58,7 +58,7 @@ public class Estante extends JFrame {
 
     private void criarComponentes() {
         LivrosController livrosController = new LivrosController();
-        tabelaLivros.setModel(new DefaultTableModelArrayList(livrosController.selecionarLista(opcao)));
+        tabelaLivros.setModel(new DefaultTableModelCollection((ArrayList<Livro>) livrosController.selecionarLista(opcao)));
         if (opcao == 1) {
             editarButton.setText("Começar edição");
         }else if (opcao == 2) {

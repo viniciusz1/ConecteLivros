@@ -1,25 +1,20 @@
 package br.senai.sc.livros.model.entities;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Livro {
     private Autor autor;
     private Editora editora;
     private String titulo;
     private Status status;
-//    1 - Aprovado
-//    2 - Em revisão
-//    3 - Aguardando revisão
-//    4 - Aguardando edição
-//    5 - Reprovado
-//    6 - Publicado
-    private int qntdPaginas;
-    private double paginasRevisadas = 0;
-    private int ISBN;
+    private Double paginasRevisadas = 0.0;
+    private Integer ISBN;
+    private Integer qntdPaginas;
 
     static ArrayList<Livro>listaLivros = new ArrayList<Livro>();
-
     public Livro(){};
+
 
     public Livro(Autor autor, String titulo, Status status, int qntdPaginas, int ISBN) {
         this.autor = autor;
@@ -89,12 +84,22 @@ public class Livro {
         this.paginasRevisadas = paginasRevisadas;
     }
 
-
-
+    @Override
+    public boolean equals(Object o) {
+    //    if (this == o) return true;
+    //    if (o == null || getClass() != o.getClass()) return false;
+        Livro livro = (Livro) o;
+        return ISBN == livro.ISBN;
+    }
 
     @Override
-    public String toString() {
-        String statusStri = null, editoraNome = null;
+    public int hashCode() {
+        return ISBN;
+    }
+
+    @Override
+public String toString() {
+        String editoraNome = null;
 
         if(editora == null){
             editoraNome = "Livro não publicado";

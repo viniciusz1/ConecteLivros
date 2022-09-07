@@ -9,5 +9,4 @@ public enum Genero {
         this.nome = nome;
     }
 
-    Genero(){}
 }

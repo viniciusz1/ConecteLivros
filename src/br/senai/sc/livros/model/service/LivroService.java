@@ -6,12 +6,13 @@ import br.senai.sc.livros.model.entities.Pessoa;
 import br.senai.sc.livros.model.entities.Status;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class LivroService {
     LivroDAO bd = new LivroDAO();
 
-    public void inserir(Livro livro) {
-        bd.inserir(livro);
+    public Boolean inserir(Livro livro) {
+        return bd.inserir(livro);
     }
 
     public void remover(Livro livro) {
@@ -28,19 +29,19 @@ public class LivroService {
         bd.atualizar(isbn, livroAtualizado);
     }
 
-    public ArrayList<Livro> selecionarLista() {
+    public Collection<Livro> selecionarLista() {
         return bd.selecionarLista();
     }
 
-    public ArrayList<Livro> selecionarPorAutor(Pessoa pessoa) {
+    public Collection<Livro> selecionarPorAutor(Pessoa pessoa) {
         return bd.selecionarPorAutor(pessoa);
     }
 
-    public ArrayList<Livro> selecionarAtividadesAutor(Pessoa pessoa) {
+    public Collection<Livro> selecionarAtividadesAutor(Pessoa pessoa) {
         return bd.selecionarAtividadesAutor(pessoa);
     }
 
-    public ArrayList<Livro> selecionarPorStatus(Status status) {
+    public Collection<Livro> selecionarPorStatus(Status status) {
         return bd.selecionarPorStatus(status);
     }
 }

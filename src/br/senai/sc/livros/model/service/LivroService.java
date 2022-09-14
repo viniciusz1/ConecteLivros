@@ -5,13 +5,14 @@ import br.senai.sc.livros.model.entities.Livro;
 import br.senai.sc.livros.model.entities.Pessoa;
 import br.senai.sc.livros.model.entities.Status;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class LivroService {
     LivroDAO bd = new LivroDAO();
 
-    public Boolean inserir(Livro livro) {
+    public Boolean inserir(Livro livro) throws SQLException {
         return bd.inserir(livro);
     }
 

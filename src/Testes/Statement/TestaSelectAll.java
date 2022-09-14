@@ -23,7 +23,7 @@ public class TestaSelectAll {
                     resultset.getInt("idade")
 
             );
-            contatoCollection.add(contato);
+//            contatoCollection.add(contato);
         }
         System.out.println(contatoCollection);
     }

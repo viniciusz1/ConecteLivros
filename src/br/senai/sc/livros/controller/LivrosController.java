@@ -4,6 +4,7 @@ import br.senai.sc.livros.model.entities.*;
 import br.senai.sc.livros.model.service.LivroService;
 import br.senai.sc.livros.view.Menu;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 //Objeto que vai intermediar a view com a classe livros;
@@ -14,7 +15,7 @@ public class LivrosController {
 
     Livro model = new Livro();
 
-    public Boolean cadastrar(String titulo, String isbn, String qtdPag, Pessoa autor) {
+    public Boolean cadastrar(String titulo, String isbn, String qtdPag, Pessoa autor) throws SQLException {
         Livro livro;
         LivroService service = new LivroService();
         livro = Livro.cadastrar(titulo, Integer.parseInt(isbn), Integer.parseInt(qtdPag), (Autor) autor);

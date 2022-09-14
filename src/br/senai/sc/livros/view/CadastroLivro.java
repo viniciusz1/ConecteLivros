@@ -6,6 +6,7 @@ import br.senai.sc.livros.model.entities.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class CadastroLivro extends JFrame{
     private JButton voltarButton;
@@ -29,7 +30,12 @@ public class CadastroLivro extends JFrame{
                 JOptionPane.showMessageDialog(null, "Há campos vazios!");
             } else {
                 LivrosController controller = new LivrosController();
-                Boolean add = controller.cadastrar(titulo, isbn, qtdPag, usuario);
+                Boolean add = null;
+                try {
+                    add = controller.cadastrar(titulo, isbn, qtdPag, usuario);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
                 System.out.println(add);
                 if(add.equals(true)){
                     JOptionPane.showMessageDialog(null, "Livro g cadastrado com sucesso!");

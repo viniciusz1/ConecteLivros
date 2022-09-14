@@ -3,6 +3,9 @@ package br.senai.sc.livros.model.dao;
 import br.senai.sc.livros.controller.LivrosController;
 import br.senai.sc.livros.model.entities.*;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.*;
 
 public class LivroDAO {
@@ -29,9 +32,23 @@ public class LivroDAO {
     }
 
 
-    public Boolean inserir(Livro livro) {
+    public Boolean inserir(Livro livro) throws SQLException {
         Boolean tmp = !listaLivros.contains(livro);
-        listaLivros.add(livro);
+        String query = "insert into contatos(isbnLivro, tituloLivro, quantidadePaginasLivro, " +
+                "statusLivro, paginasRevisadasLivro, AUTORES_idAutor)" +
+                "values(?,?,?,?,?,?)";
+        
+        Conexao conexao = new Conexao();
+        Connection connection = conexao.conectaBD();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, livro.getISBN());
+        statement.setString(2, livro.getTitulo());
+        statement.setInt(3, livro.getQntdPaginas());
+        statement.setObject(2, livro.getStatus());
+        statement.setDouble(2, livro.getPaginasRevisadas());
+        statement.setInt(2, livro.getAutor().getIdAutor());
+        statement.execute();
+        connection.close();
         return tmp;
     }
 

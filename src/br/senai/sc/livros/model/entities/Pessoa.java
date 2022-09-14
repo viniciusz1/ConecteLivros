@@ -36,6 +36,25 @@ public class Pessoa {
         this.senha = senha;
     }
 
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
     public String getCPF() {
         return CPF;

@@ -1,5 +1,3 @@
-package Testes;
-
 import br.senai.sc.livros.model.dao.Conexao;
 import br.senai.sc.livros.model.entities.*;
 

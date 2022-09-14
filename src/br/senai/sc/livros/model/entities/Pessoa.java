@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Pessoa {
-    private String CPF, nome, sobrenome, email, senha;
+        private String CPF, nome, sobrenome, email, senha;
     private Genero genero;
 
 //    public abstract void listarLivros();

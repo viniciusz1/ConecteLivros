@@ -16,6 +16,10 @@ public class Editora {
         return nome;
     }
 
+    public String getCNPJ() {
+        return CNPJ;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }

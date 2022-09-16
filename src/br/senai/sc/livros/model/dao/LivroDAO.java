@@ -5,6 +5,7 @@ import br.senai.sc.livros.model.entities.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -34,20 +35,31 @@ public class LivroDAO {
 
     public Boolean inserir(Livro livro) throws SQLException {
         Boolean tmp = !listaLivros.contains(livro);
-        String query = "insert into contatos(isbnLivro, tituloLivro, quantidadePaginasLivro, " +
-                "statusLivro, paginasRevisadasLivro, AUTORES_idAutor)" +
-                "values(?,?,?,?,?,?)";
-        
         Conexao conexao = new Conexao();
         Connection connection = conexao.conectaBD();
+        String query = "select idAutor from autores where PESSOAS_cpfPessoa = ?";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, livro.getISBN());
-        statement.setString(2, livro.getTitulo());
-        statement.setInt(3, livro.getQntdPaginas());
-        statement.setObject(2, livro.getStatus());
-        statement.setDouble(2, livro.getPaginasRevisadas());
-        statement.setInt(2, livro.getAutor().getIdAutor());
-        statement.execute();
+        statement.setString(1, livro.getAutor().getCPF());
+        ResultSet resultset = statement.executeQuery();
+        if(resultset != null) {
+            if (resultset.next()) {
+                query = "insert into livros(isbnLivro, tituloLivro, qtdPaginasLivro, " +
+                        "statusLivro, paginasRevisadasLivro, AUTORES_idAutor)" +
+                        "values(?,?,?,?,?,?)";
+                statement = connection.prepareStatement(query);
+                statement.setInt(1, livro.getISBN());
+                statement.setString(2, livro.getTitulo());
+                statement.setInt(3, livro.getQntdPaginas());
+                statement.setString(4, livro.getStatus().name());
+                statement.setDouble(5, livro.getPaginasRevisadas());
+                statement.setInt(6,resultset.getInt("idAutor"));
+                statement.execute();
+            }else{
+                System.out.println("hehe");
+            }
+        }
+
+
         connection.close();
         return tmp;
     }

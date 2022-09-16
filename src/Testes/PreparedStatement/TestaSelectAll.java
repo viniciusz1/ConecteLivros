@@ -14,8 +14,8 @@ public class TestaSelectAll {
         Conexao conexao = new Conexao();
         Connection connection = conexao.conectaBD();
         Statement statement = connection.createStatement();
-        ResultSet resultset =  statement.executeQuery(sql);
-      while (resultset != null && resultset.next()) {
+        ResultSet resultset = statement.executeQuery(sql);
+        while (resultset != null && resultset.next()) {
             Contato contato = new Contato(resultset.getInt("id"),
                     resultset.getString("nome"),
                     resultset.getString("email"),

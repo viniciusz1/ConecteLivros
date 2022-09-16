@@ -13,19 +13,18 @@ public class PessoaDAO {
     private static final Set<Pessoa> listaPessoas = new HashSet<>();
 
     static{
-        listaPessoas.add(new Autor("12435678", "Leozin", "Rafaellizin",
-                "autor@", Genero.MASCULINO, "123"));
+        listaPessoas.add(new Autor("12435678", "vini", "bonatti",
+                "a@", Genero.MASCULINO, "123"));
         listaPessoas.add(new Revisor("1265", "LeGSFDozin", "RafaeHTFDllizin",
-                "revisor@", Genero.MASCULINO, "123"));
+                "r@", Genero.MASCULINO, "123"));
         listaPessoas.add(new Diretor("1243657565678", "LeSDAozin", "RafaHDFGellizin",
-                "diretor@", Genero.MASCULINO, "123"));
+                "d@", Genero.MASCULINO, "123"));
     }
 
     public void inserir(Pessoa pessoa) throws SQLException {
 
         Conexao conexao = new Conexao();
         Connection connection = conexao.conectaBD();
-
         String query = "insert into pessoas(cpfPessoa, nomePessoa, sobrenomePessoa, emailPessoa, senhaPessoa," +
                 "generoPessoa)values(?,?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(query);
@@ -52,6 +51,7 @@ public class PessoaDAO {
     }
 
     public Pessoa selecionarPorCPF(String CPF){
+
         for(Pessoa pessoa : listaPessoas){
             if(pessoa.getCPF().equals(CPF)) return pessoa;
         }
